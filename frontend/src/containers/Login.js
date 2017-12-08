@@ -1,33 +1,54 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom';
 import { postLogin } from '../utils/api/index';
+import loggedUser from '../utils/loggedUser';
+import Notification from '../components/Notification';
 
 export default class Login extends React.Component {
   constructor(props) {
     super(props);
 
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.state = {
+      isThereLoginError: false
+    };
   }
 
   async handleSubmit(e) {
     e.preventDefault();
     const { data, err } = await postLogin(this._username.value, this._password.value);
     if (err) {
-      // do something here
+      console.log(err);
+      this.setState({
+          isThereLoginError: true
+      });
       return;
     }
-    const { token } = data;
-    // TODO: must store token in some place probably localstorage
-    // TODO: should redirect to the right way
 
+    const { token } = data;
+
+    // Store token in localstorage
+    loggedUser.setToken(token);
+    this.setState({
+        isThereLoginError: false
+    });
   }
 
   render() {
+    // Redirect to Dashboard
+    if(loggedUser.getToken()){
+      return (
+        <Redirect to="/" />
+      );
+    }
+
     return (
       <div className="Grid Grid--alignCenter">
         <div className="Grid-cell u-md-size6of12">
           <div className="Login">
             <div className="LoginForm">
               <div>
+                { this.state.isThereLoginError ? <Notification type="error" text="Credenciales no válidas" icon="true"/> : ''}
                 <form className="Form" noValidate onSubmit={this.handleSubmit}>
                   <fieldset>
                     <div className="Form-group">
