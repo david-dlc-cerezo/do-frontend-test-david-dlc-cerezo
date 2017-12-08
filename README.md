@@ -17,7 +17,7 @@ The purpose of this test is to make an MVP about this new idea.
 
 One of our interns started working on the project (Ver+Tarde) last summer. But the internship ended and he left the company.
 
-As far as we know, our he did the whole Backend part and only started doing some Frontend. He did not do too much. So, if you want you can replace it for the technology of your preference.
+As far as we know, he did the whole Backend part and only started doing some Frontend. He did not do too much. So, if you want you can replace it for the technology of your preference.
 
 **ToDo**
 
@@ -33,7 +33,7 @@ As far as we know, our he did the whole Backend part and only started doing some
 
 * From `frontend` folder
 * Install dependencies ```npm install```
-* Copy frontend.env in dot env into frontend folder ```cp ../frontend.env frontend/.env```
+* Copy frontend.env in dot env into frontend folder ```cp ../frontend.env .env```
 * Start application ```npm start```
 
 ### Backend with Docker
