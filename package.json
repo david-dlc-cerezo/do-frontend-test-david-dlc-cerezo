@@ -1,0 +1,15 @@
+{
+  "name": "do-frontend-test-master",
+  "version": "0.1.0",
+  "description": "Digital Origin Front End Test - David de la Calle Cerezo",
+  "main": "index.js",
+  "dependencies": {
+    "create-react-app": "^1.4.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "David de la Calle Cerezo",
+  "license": "ISC"
+}
