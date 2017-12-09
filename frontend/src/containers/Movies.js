@@ -1,5 +1,5 @@
 import React from 'react';
-import MovieTable from '../components/MovieTable';
+import MoviesTable from '../components/MoviesTable';
 import loggedUser from '../utils/loggedUser';
 import {Redirect} from 'react-router-dom';
 
@@ -12,7 +12,7 @@ export default class Movies extends React.Component {
     return(
       <article className="Panel">
         <h2 className="Heading2">Lista de peliculas</h2>
-        <MovieTable />
+        <MoviesTable />
       </article>
     );
   }

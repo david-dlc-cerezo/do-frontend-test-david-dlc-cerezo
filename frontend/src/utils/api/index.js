@@ -39,6 +39,18 @@ export function generateSecureHeader() {
 }
 
 /**
+ * Get users favourites movie list from the server
+ * @return {Promise<Object>}
+ */
+function getFavourites(){
+  const url = buildUrl(types.FAVORITES);
+  return request(url, {
+    method: 'GET',
+    headers: generateSecureHeader()
+  });
+}
+
+/**
  * Get movie list from the server
  * @return {Promise<Object>}
  */
@@ -78,6 +90,8 @@ var apiManager = {
   addToFavourites: addToFavourites,
 
   generateSecureHeader: generateSecureHeader,
+
+  getFavourites: getFavourites,
 
   getMovies: getMovies,
 
