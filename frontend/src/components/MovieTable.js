@@ -1,5 +1,6 @@
 import React from 'react';
 import apiManager from '../utils/api';
+import AddToFavouritesButton from '../components/AddToFavouritesButton'
 
 export default class MovieTable extends React.Component {
   constructor(props) {
@@ -51,13 +52,7 @@ export default class MovieTable extends React.Component {
                     <a className="Link" href={'/movie/' + item.id}>{item.original_title}</a>
                   </td>
                   <td>
-                    <button className="Button Button--link" onClick={() => this.addToFavourites(item.id)}>
-                      <span className="fa-layers fa-fw" title="Añadir a favoritos">
-                        <i className="far fa-heart"></i>
-                        <i className="fas fa-circle" data-fa-transform="shrink-5 down-4 right-7"></i>
-                        <i className="fas fa-plus fa-inverse" data-fa-transform="shrink-7 down-4 right-7"></i>
-                      </span>
-                    </button>
+                    <AddToFavouritesButton movie={item} />
                   </td>
                 </tr>
               );
