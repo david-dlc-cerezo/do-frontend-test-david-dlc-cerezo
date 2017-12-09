@@ -1,5 +1,6 @@
 import React from 'react';
 import {Redirect} from 'react-router-dom';
+import loggedUser from '../utils/loggedUser';
 
 export default class Dashboard extends React.Component {
   /**
@@ -17,7 +18,7 @@ export default class Dashboard extends React.Component {
   }
 
   render() {
-    if (!this.props.token) {
+    if (!loggedUser.getToken()) {
       return <Redirect to="/login"/>
     }
 

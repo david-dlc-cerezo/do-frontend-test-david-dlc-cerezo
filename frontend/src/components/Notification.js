@@ -2,12 +2,6 @@ import React from 'react';
 import classnames from 'classnames';
 
 export default class Notification extends React.Component {
-  constructor(){
-    super();
-    this.show = true;
-    console.log(this);
-  }
-
   render() {
     let notificationClasses = [
       'Notification',

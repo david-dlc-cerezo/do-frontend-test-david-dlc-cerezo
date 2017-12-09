@@ -1,5 +1,18 @@
 import request from './request';
 import buildUrl, { types } from './endpoints';
+import loggedUser from '../loggedUser';
+
+/**
+ * Add a movie to user favourites
+ */
+function addToFavourites(movieId){
+  const url = buildUrl(types.ADD_FAVORITES);
+  return request(url, {
+    method: 'POST',
+    headers: generateSecureHeader(),
+    body: JSON.stringify({ movieDBId: movieId })
+  });
+}
 
 /**
  * Utils function to generate the secure headers given the authorization token
@@ -7,14 +20,34 @@ import buildUrl, { types } from './endpoints';
  * @return {Object}                   - Object that contain the secure headers information
  * @property {?string} Authorization  - Header authorization
  */
-export function generateSecureHeader(token) {
+export function generateSecureHeader() {
+
+  /**
+   * Token that authorize the petitions
+   * @type {string}
+   */
+  const token = loggedUser.getToken();
+
   if (!token) {
     return {};
   }
 
   return {
-    Authorization: `Bearer ${token}`,
+    'Content-type': 'application/json; charset=UTF-8',
+    'Authorization': `Bearer ${token}`,
   };
+}
+
+/**
+ * Get movie list from the server
+ * @return {Promise<Object>}
+ */
+function getMovies(){
+  const url = buildUrl(types.MOVIES);
+  return request(url, {
+    method: 'GET',
+    headers: generateSecureHeader()
+  });
 }
 
 /**
@@ -35,3 +68,20 @@ export function postLogin(username, password) {
     body: JSON.stringify({ username, password }),
   });
 }
+
+
+/**
+ * Object that groups API operations
+ * @type {Object}
+ */
+var apiManager = {
+  addToFavourites: addToFavourites,
+
+  generateSecureHeader: generateSecureHeader,
+
+  getMovies: getMovies,
+
+  postLogin: postLogin,
+}
+
+export default apiManager;
