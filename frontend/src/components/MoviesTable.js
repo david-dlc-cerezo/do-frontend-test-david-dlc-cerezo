@@ -1,8 +1,24 @@
 import React from 'react';
 import apiManager from '../utils/api';
-import AddToFavouritesButton from '../components/AddToFavouritesButton';
 import Loading from './Loading';
 import Notification from './Notification';
+import MovieTile from './MovieTile';
+
+/**
+ * Suffle the items in the input array
+ * @param  {Array} array Original array
+ * @return {Array}       Shuffled array
+ */
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    let j = Math.floor(Math.random() * (i + 1));
+    let temp = array[i];
+    array[i] = array[j];
+    array[j] = temp;
+  }
+
+  return array;
+}
 
 export default class MoviesTable extends React.Component {
   constructor(props) {
@@ -16,16 +32,24 @@ export default class MoviesTable extends React.Component {
     };
   }
 
+  /**
+   * Load a movie list with all the available movies
+   * @return {Promise}
+   */
   async loadMovies() {
     apiManager.getMovies()
       .then((response) => {
-          this.setState({
-              moviesLoaded: true,
-              movies: response.data.movies
-          });
+        this.setState({
+            moviesLoaded: true,
+            movies: shuffleArray(response.data.movies)
+        });
       });
   }
 
+  /**
+   * Load the user favourite movie list
+   * @return {Promise}
+   */
   async loadFavourites() {
     return apiManager.getFavourites()
       .then((response) => {
@@ -37,11 +61,13 @@ export default class MoviesTable extends React.Component {
       });
   }
 
-  async addToFavourites(movieId){
-    return apiManager.addToFavourites(movieId)
-      .then((response) => {
-        console.log(response);
-      });
+  /**
+   * Is the movie one of the user favourites?
+   * @param  {Movie}  movie Movie to search
+   * @return {Boolean}      TRUE = yes, FALSE = no
+   */
+  isInFavourites(movie){
+    this.state.favourites.find( (item) => (movie === item) );
   }
 
   render(){
@@ -73,30 +99,21 @@ export default class MoviesTable extends React.Component {
     }
 
     return (
-      <table className="Table">
-        <thead>
-          <tr>
-            <th>Título original</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
+      <section className="Panel">
+        <div className="Grid Grid--equalHeight Grid--withGutter">
           {
             this.state.movies.map((item) => {
-              return (
-                <tr key={item.id}>
-                  <td data-th="Título original">
-                    <a className="Link" href={'/movie/' + item.id}>{item.original_title}</a>
-                  </td>
-                  <td>
-                    <AddToFavouritesButton movie={item} />
-                  </td>
-                </tr>
-              );
+              if(!this.isInFavourites(item)){
+                return (
+                  <MovieTile movie={item} key={item.id} />
+                );
+              } else {
+                return '';
+              }
             })
           }
-        </tbody>
-      </table>
+        </div>
+      </section>
     );
   }
 }

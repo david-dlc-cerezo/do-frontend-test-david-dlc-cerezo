@@ -1,0 +1,20 @@
+.Movie {
+  background-color: #e1eef0;
+  border-color: #e1eef0;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 10px;
+  padding: 10px 20px;
+}
+
+.Movie-title {
+  margin-bottom: 5px
+}
+
+.Movie-text {
+}
+
+.Movie-text .Movie-overview {
+  position: relative;
+  padding: 5px 0;
+}

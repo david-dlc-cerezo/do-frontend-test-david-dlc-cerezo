@@ -11,7 +11,7 @@ export default class Movies extends React.Component {
 
     return(
       <article className="Panel">
-        <h2 className="Heading2">Lista de peliculas</h2>
+        <h2 className="Heading2">Descubre películas</h2>
         <MoviesTable />
       </article>
     );
