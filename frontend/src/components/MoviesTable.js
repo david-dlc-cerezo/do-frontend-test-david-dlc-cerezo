@@ -103,13 +103,9 @@ export default class MoviesTable extends React.Component {
         <div className="Grid Grid--equalHeight Grid--withGutter">
           {
             this.state.movies.map((item) => {
-              if(!this.isInFavourites(item)){
-                return (
-                  <MovieTile movie={item} key={item.id} />
-                );
-              } else {
-                return '';
-              }
+              return (
+                <MovieTile movie={item} key={item.id} favorite={this.isInFavourites(item)} />
+              );
             })
           }
         </div>

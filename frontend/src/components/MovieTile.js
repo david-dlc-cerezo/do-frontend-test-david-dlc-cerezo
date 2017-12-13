@@ -11,7 +11,11 @@ export default class MovieTile extends React.Component {
           <h3 className="Heading3 Movie-title">{movie.original_title}</h3>
           <img className="Movie-image u-imgResponsive" src={"https://image.tmdb.org/t/p/w500/" + movie.backdrop_path} alt={movie.original_title} />
           <div className="ButtonSet ButtonSet--right">
-            <AddToFavouritesButton movie={movie} />
+            {
+              this.props.favourite ?
+                <AddToFavouritesButton movie={movie} /> :
+                <i className="fas fa-heart" title="En tus favoritos"></i>    
+            }
           </div>
           <div className="Movie-text">
             <p className="Movie-overview Text Text--small">{movie.overview}</p>
