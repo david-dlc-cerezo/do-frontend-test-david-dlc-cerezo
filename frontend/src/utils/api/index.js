@@ -39,6 +39,25 @@ export function generateSecureHeader() {
 }
 
 /**
+ * Create a user into the application
+ * @param username    - Username from the user
+ * @param password    - Password from the user
+ * @returns {Promise<Object>}
+ * @property {string} data.message   - status of response
+ * @property {?string} data.token    - jwt token of request
+ */
+function createUser(username, password){
+  const url = buildUrl(types.CREATE_USER);
+  return request(url, {
+    method: 'POST',
+    headers: {
+      'Content-type': 'application/json; charset=UTF-8',
+    },
+    body: JSON.stringify({ username, password }),
+  });
+}
+
+/**
  * Get users favourites movie list from the server
  * @return {Promise<Object>}
  */
@@ -88,6 +107,8 @@ export function postLogin(username, password) {
  */
 var apiManager = {
   addToFavourites: addToFavourites,
+
+  createUser: createUser,
 
   generateSecureHeader: generateSecureHeader,
 
